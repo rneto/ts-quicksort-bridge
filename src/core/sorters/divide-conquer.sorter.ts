@@ -11,4 +11,14 @@ export abstract class DivideConquerSorter {
   constructor(sorterAlgorithm: SorterAlgorithmInterface) {
     this.sorterAlgorithm = sorterAlgorithm;
   }
+
+  /**
+   * Sort service method.
+   * @param numbers The numbers to sort.
+   */
+  sort(numbers: number[]): void {
+    if (numbers.length > 1) {
+      this.sorterAlgorithm.sort(numbers, 0, numbers.length - 1);
+    }
+  }
 }

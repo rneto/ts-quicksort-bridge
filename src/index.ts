@@ -2,7 +2,7 @@
 import '../style.css';
 
 // Import modules
-import { BasicQuicksort } from './core/algorithms';
+import { LomutoQuicksort, NativeQuicksort } from './core/algorithms';
 import { QuicksortSorter } from './core/sorters';
 
 // Import utils
@@ -21,7 +21,7 @@ export class App {
    * App constructor.
    */
   constructor() {
-    this.title = 'Implementations of the QuickSort Algorithm and using the Bridge Pattern with TypeScript';
+    this.title = 'Implementations of the QuickSort Algorithm and use the Bridge Pattern with TypeScript';
     this.writer = htmlWriterFactory.createHTMLWriter('app');
   }
 
@@ -32,24 +32,43 @@ export class App {
     document.title = this.title;
     this.writer.push(`<h1>${this.title}</h1>`);
 
-    this.showBasicQuicksortDemo();
+    this.writer.push(`<div class='numbers'>${numbers.join(', ')}</div>`);
+
+    this.showLomutoQuicksortDemo();
+    this.showNativeQuicksortDemo();
   }
 
   /**
-   * Show de basic quisort demo.
+   * Show de lomuto quisort demo.
    */
-  private showBasicQuicksortDemo(): void {
-    const basicQuicksort: BasicQuicksort = new BasicQuicksort();
-    const quickSorterService: QuicksortSorter = new QuicksortSorter(basicQuicksort);
+  private showLomutoQuicksortDemo(): void {
+    const lomutoQuicksort: LomutoQuicksort = new LomutoQuicksort();
+    const quickSorterService: QuicksortSorter = new QuicksortSorter(lomutoQuicksort);
     const timer = new Timer();
-    let sortedNumbers: number[] = [];
+    const sortedNumbers = [...numbers];
 
     timer.start();
-    sortedNumbers = quickSorterService.sort(numbers);
+    quickSorterService.sort(sortedNumbers);
     timer.end();
 
-    this.writer.push(`<h2>Basic Quicksort <small>(${timer.elapsedTime()}ms to order ${numbers.length} numbers)</small></h2>`);
-    this.writer.push(`<div class='numbers'>${numbers.join(', ')}</div>`);
+    this.writer.push(`<h2>Lomuto Quicksort <small>(${timer.elapsedTime()}ms to order ${numbers.length} numbers)</small></h2>`);
+    this.writer.push(`<div class='numbers'>${sortedNumbers.join(', ')}</div>`);
+  }
+
+  /**
+   * Show de native quisort demo.
+   */
+  private showNativeQuicksortDemo(): void {
+    const nativeQuicksort: NativeQuicksort = new NativeQuicksort();
+    const quickSorterService: QuicksortSorter = new QuicksortSorter(nativeQuicksort);
+    const timer = new Timer();
+    const sortedNumbers = [...numbers];
+
+    timer.start();
+    quickSorterService.sort(sortedNumbers);
+    timer.end();
+
+    this.writer.push(`<h2>Native Quicksort <small>(${timer.elapsedTime()}ms to order ${numbers.length} numbers)</small></h2>`);
     this.writer.push(`<div class='numbers'>${sortedNumbers.join(', ')}</div>`);
   }
 }
