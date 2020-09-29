@@ -2,7 +2,7 @@
 import '../style.css';
 
 // Import modules
-import { LomutoQuicksort, NativeQuicksort } from './core/algorithms';
+import { BasicQuicksort, LomutoQuicksort, NativeQuicksort } from './core/algorithms';
 import { QuicksortSorter } from './core/sorters';
 
 // Import utils
@@ -34,12 +34,30 @@ export class App {
 
     this.writer.push(`<div class='numbers'>${numbers.join(', ')}</div>`);
 
+    this.showBasicQuicksortDemo();
     this.showLomutoQuicksortDemo();
     this.showNativeQuicksortDemo();
   }
 
   /**
-   * Show de lomuto quisort demo.
+   * Show the basic quisort demo.
+   */
+  private showBasicQuicksortDemo(): void {
+    const basicQuicksort: BasicQuicksort = new BasicQuicksort();
+    const quickSorterService: QuicksortSorter = new QuicksortSorter(basicQuicksort);
+    const timer = new Timer();
+    const sortedNumbers = [...numbers];
+
+    timer.start();
+    quickSorterService.sort(sortedNumbers);
+    timer.end();
+
+    this.writer.push(`<h2>Basic Quicksort <small>(${timer.elapsedTime()}ms to order ${numbers.length} numbers)</small></h2>`);
+    this.writer.push(`<div class='numbers'>${sortedNumbers.join(', ')}</div>`);
+  }
+
+  /**
+   * Show the lomuto quisort demo.
    */
   private showLomutoQuicksortDemo(): void {
     const lomutoQuicksort: LomutoQuicksort = new LomutoQuicksort();
@@ -56,7 +74,7 @@ export class App {
   }
 
   /**
-   * Show de native quisort demo.
+   * Show the native quisort demo.
    */
   private showNativeQuicksortDemo(): void {
     const nativeQuicksort: NativeQuicksort = new NativeQuicksort();
