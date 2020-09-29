@@ -19,6 +19,12 @@ export class BasicQuicksort implements SorterAlgorithmInterface {
     this.sort(right);
 
     // eslint-disable-next-line no-param-reassign
-    numbers.splice(0, numbers.length, ...left, ...numbers.filter((n) => n === pivot), ...right);
+    numbers.splice(
+      0,
+      numbers.length,
+      ...left,
+      ...numbers.filter((n) => n === pivot),
+      ...right,
+    );
   }
 }
