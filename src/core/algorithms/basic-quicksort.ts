@@ -3,7 +3,7 @@
 import { SorterAlgorithmInterface } from '.';
 
 /**
- * Native quicksort algorithm implementation.
+ * Basic quicksort algorithm implementation.
  */
 export class BasicQuicksort implements SorterAlgorithmInterface {
   sort(numbers: number[]): void {
